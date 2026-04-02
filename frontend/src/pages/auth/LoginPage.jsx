@@ -7,7 +7,7 @@ import { useGuestCart } from "../../context/GuestCartContext";
 import { useToast } from "../../context/ToastContext";
 import logo from "../../assets/LocalKart logo design on white background.png";
 
-const ROLE_OPTIONS = [ROLES.CUSTOMER, ROLES.SHOPKEEPER, ROLES.DELIVERY_AGENT];
+const ROLE_OPTIONS = [ROLES.CUSTOMER, ROLES.SHOPKEEPER, ROLES.DELIVERY_AGENT, ROLES.ADMIN];
 
 const LoginPage = () => {
   const { login, isAuthenticated, user } = useAuth();
@@ -96,7 +96,13 @@ const LoginPage = () => {
                     className={`btn btn-sm ${form.role === role ? "btn-success" : "btn-outline-success"}`}
                     onClick={() => setForm((prev) => ({ ...prev, role }))}
                   >
-                    {role === ROLES.CUSTOMER ? "Customer" : role === ROLES.SHOPKEEPER ? "Shopkeeper" : "Delivery Agent"}
+                    {role === ROLES.CUSTOMER
+                      ? "Customer"
+                      : role === ROLES.SHOPKEEPER
+                        ? "Shopkeeper"
+                        : role === ROLES.DELIVERY_AGENT
+                          ? "Delivery Agent"
+                          : "Admin"}
                   </button>
                 ))}
               </div>

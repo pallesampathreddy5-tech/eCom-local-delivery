@@ -7,7 +7,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const catalogPath = path.resolve(__dirname, "../../data/catalog.json");
-const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf-8"));
+const emptyCatalog = { categories: [], products: [] };
+
+const loadCatalog = () => {
+  try {
+    return JSON.parse(fs.readFileSync(catalogPath, "utf-8"));
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      console.warn(`Catalog seed file not found at ${catalogPath}. Continuing with DB-backed catalog only.`);
+      return emptyCatalog;
+    }
+
+    throw error;
+  }
+};
+
+const catalog = loadCatalog();
 
 const mapDbProduct = (product) => ({
   id: product._id.toString(),
