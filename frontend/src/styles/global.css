@@ -13,7 +13,7 @@ a {
   color: inherit;
 }
 .auth-page {
-  min-height: calc(100vh - 48px);
+  min-height: 100vh;
   background: linear-gradient(180deg, #f3faf5 0%, #ffffff 100%);
 }
 
@@ -23,8 +23,24 @@ a {
   border-radius: 18px;
 }
 
-.app-switcher {
-  backdrop-filter: blur(6px);
+.auth-logo {
+  height: 58px;
+  width: auto;
+  object-fit: contain;
+}
+
+.auth-form .form-floating {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.auth-form .form-control,
+.auth-form .form-select {
+  min-height: 56px;
+}
+
+.auth-form .form-floating > label {
+  padding-top: 0.95rem;
 }
 
 .toast-stack {

@@ -7,12 +7,10 @@
   background: radial-gradient(circle at top right, #edf9f1 0%, #f8faf8 45%);
 }
 
-.storefront-shell .brand-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--brand-green);
-  box-shadow: 0 0 0 4px rgba(44, 140, 75, 0.15);
+.storefront-shell .brand-logo {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
 }
 
 .storefront-shell .hero-wrap {
@@ -23,6 +21,11 @@
   background: #ffffff;
   border: 1px solid #d9f0df;
   box-shadow: 0 20px 45px rgba(39, 84, 54, 0.08);
+}
+
+.storefront-shell .category-banner {
+  background: #fff;
+  border: 1px solid #dfeee3;
 }
 
 .storefront-shell .category-chip {
@@ -55,4 +58,10 @@
 .storefront-shell .footer-wrap {
   border-top: 1px solid #e2ebe4;
   background: #ffffff;
+}
+
+@media (max-width: 576px) {
+  .storefront-shell .brand-logo {
+    height: 42px;
+  }
 }

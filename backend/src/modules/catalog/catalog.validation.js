@@ -3,7 +3,8 @@ import { z } from "zod";
 export const listProductsSchema = z.object({
   query: z.object({
     categoryId: z.string().optional(),
-    search: z.string().optional()
+    search: z.string().optional(),
+    shopUserId: z.string().optional()
   })
 });
 

@@ -8,13 +8,16 @@ import "./styles/admin-theme.css";
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
+import { GuestCartProvider } from "./context/GuestCartContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <ToastProvider>
         <AuthProvider>
-          <App />
+          <GuestCartProvider>
+            <App />
+          </GuestCartProvider>
         </AuthProvider>
       </ToastProvider>
     </BrowserRouter>

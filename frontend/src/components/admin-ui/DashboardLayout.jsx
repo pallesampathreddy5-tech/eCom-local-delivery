@@ -1,6 +1,19 @@
-const menu = ["Dashboard", "Approvals", "Products", "Orders", "Deliveries", "Reports", "Audit Logs"];
+import { NavLink } from "react-router-dom";
 
 const DashboardLayout = ({ children, roleLabel, avatarText, onLogout }) => {
+  const menu = roleLabel === "SUPER_ADMIN"
+    ? [
+        { label: "Dashboard", to: "/super-admin/dashboard" },
+        { label: "Approvals", to: "/admin/approvals" },
+        { label: "Upload Products", to: "/admin/upload-product" },
+        { label: "Create Admin", to: "/super-admin/admins" }
+      ]
+    : [
+        { label: "Dashboard", to: "/admin/dashboard" },
+        { label: "Approvals", to: "/admin/approvals" },
+        { label: "Upload Products", to: "/admin/upload-product" }
+      ];
+
   return (
     <div className="dashboard-shell d-flex">
       <aside className="sidebar p-3 p-lg-4">
@@ -9,9 +22,14 @@ const DashboardLayout = ({ children, roleLabel, avatarText, onLogout }) => {
           <strong className="text-white fs-5">Hyperlocal Admin</strong>
         </div>
         <ul className="nav flex-column gap-2">
-          {menu.map((item, idx) => (
-            <li key={item} className={`menu-item px-3 py-2 rounded-3 ${idx === 0 ? "active" : ""}`}>
-              {item}
+          {menu.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) => `menu-item d-block px-3 py-2 rounded-3 text-decoration-none ${isActive ? "active" : ""}`}
+              >
+                {item.label}
+              </NavLink>
             </li>
           ))}
         </ul>

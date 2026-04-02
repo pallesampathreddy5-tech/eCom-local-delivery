@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ROLE_ROUTE_MAP, ROLES } from "../../config/authConfig";
 import { registerRequestByRole } from "../../api/authService";
 import { useToast } from "../../context/ToastContext";
+import logo from "../../assets/LocalKart logo design on white background.png";
 
 const initialState = {
   fullName: "",
@@ -20,12 +21,25 @@ const initialState = {
   photoUrl: ""
 };
 
+const FloatingInput = ({ id, label, value, onChange, type = "text" }) => (
+  <div className="form-floating">
+    <input id={id} className="form-control" type={type} placeholder={label} value={value} onChange={onChange} />
+    <label htmlFor={id}>{label}</label>
+  </div>
+);
+
 const RegisterPage = () => {
+  const location = useLocation();
   const [role, setRole] = useState(ROLES.CUSTOMER);
   const [form, setForm] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { showToast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === "/register/shop") setRole(ROLES.SHOPKEEPER);
+    if (location.pathname === "/register/delivery") setRole(ROLES.DELIVERY_AGENT);
+  }, [location.pathname]);
 
   const roleLabel = useMemo(() => role.replace("_", " "), [role]);
 
@@ -119,65 +133,60 @@ const RegisterPage = () => {
     <div className="auth-page d-flex align-items-center justify-content-center px-3 py-5">
       <div className="auth-card card border-0 shadow-sm">
         <div className="card-body p-4 p-md-5">
+          <div className="text-center mb-4">
+            <Link to="/" className="d-inline-block">
+              <img src={logo} alt="LocalKart" className="auth-logo" />
+            </Link>
+          </div>
+
           <h2 className="fw-bold mb-2">Register</h2>
           <p className="text-secondary mb-4">Role-based onboarding connected to backend APIs.</p>
 
-          <div className="mb-3">
-            <label className="form-label">Select Role</label>
-            <select className="form-select" value={role} onChange={(event) => setRole(event.target.value)}>
-              <option value={ROLES.CUSTOMER}>CUSTOMER</option>
-              <option value={ROLES.SHOPKEEPER}>SHOPKEEPER</option>
-              <option value={ROLES.DELIVERY_AGENT}>DELIVERY_AGENT</option>
-            </select>
-          </div>
+          <form className="d-grid gap-3 auth-form" onSubmit={handleSubmit}>
+            <div className="form-floating">
+              <select className="form-select" id="registerRole" value={role} onChange={(event) => setRole(event.target.value)}>
+                <option value={ROLES.CUSTOMER}>CUSTOMER</option>
+                <option value={ROLES.SHOPKEEPER}>SHOPKEEPER</option>
+                <option value={ROLES.DELIVERY_AGENT}>DELIVERY_AGENT</option>
+              </select>
+              <label htmlFor="registerRole">Select Role</label>
+            </div>
 
-          <form className="d-grid gap-3" onSubmit={handleSubmit}>
             {role !== ROLES.SHOPKEEPER ? (
-              <input
-                className="form-control"
-                placeholder="Full Name"
-                value={form.fullName}
-                onChange={(event) => updateField("fullName", event.target.value)}
-              />
+              <FloatingInput id="fullName" label="Full Name" value={form.fullName} onChange={(event) => updateField("fullName", event.target.value)} />
             ) : null}
 
             {role === ROLES.SHOPKEEPER ? (
               <>
-                <input className="form-control" placeholder="Shop Name" value={form.shopName} onChange={(event) => updateField("shopName", event.target.value)} />
-                <input className="form-control" placeholder="Owner Name" value={form.ownerName} onChange={(event) => updateField("ownerName", event.target.value)} />
-                <input className="form-control" placeholder="Shop Category" value={form.shopCategory} onChange={(event) => updateField("shopCategory", event.target.value)} />
+                <FloatingInput id="shopName" label="Shop Name" value={form.shopName} onChange={(event) => updateField("shopName", event.target.value)} />
+                <FloatingInput id="ownerName" label="Owner Name" value={form.ownerName} onChange={(event) => updateField("ownerName", event.target.value)} />
+                <FloatingInput id="shopCategory" label="Shop Category" value={form.shopCategory} onChange={(event) => updateField("shopCategory", event.target.value)} />
               </>
             ) : null}
 
-            <input className="form-control" placeholder="Mobile Number" value={form.mobile} onChange={(event) => updateField("mobile", event.target.value)} />
-            <input className="form-control" placeholder="Email" value={form.email} onChange={(event) => updateField("email", event.target.value)} />
+            <FloatingInput id="mobile" label="Mobile Number" value={form.mobile} onChange={(event) => updateField("mobile", event.target.value)} />
+            <FloatingInput id="email" label="Email" value={form.email} onChange={(event) => updateField("email", event.target.value)} type="email" />
 
             {role !== ROLES.CUSTOMER ? (
-              <input className="form-control" placeholder="Address" value={form.address} onChange={(event) => updateField("address", event.target.value)} />
+              <FloatingInput id="address" label="Address" value={form.address} onChange={(event) => updateField("address", event.target.value)} />
             ) : null}
 
             {role === ROLES.SHOPKEEPER ? (
               <>
-                <input className="form-control" placeholder="Latitude (optional)" value={form.latitude} onChange={(event) => updateField("latitude", event.target.value)} />
-                <input className="form-control" placeholder="Longitude (optional)" value={form.longitude} onChange={(event) => updateField("longitude", event.target.value)} />
-                <input className="form-control" placeholder="KYC Document URL (optional)" value={form.kycDocumentUrl} onChange={(event) => updateField("kycDocumentUrl", event.target.value)} />
+                <FloatingInput id="latitude" label="Latitude (optional)" value={form.latitude} onChange={(event) => updateField("latitude", event.target.value)} />
+                <FloatingInput id="longitude" label="Longitude (optional)" value={form.longitude} onChange={(event) => updateField("longitude", event.target.value)} />
+                <FloatingInput id="kycDocumentUrl" label="KYC Document URL (optional)" value={form.kycDocumentUrl} onChange={(event) => updateField("kycDocumentUrl", event.target.value)} />
               </>
             ) : null}
 
             {role === ROLES.DELIVERY_AGENT ? (
               <>
-                <input className="form-control" placeholder="Aadhaar or KYC URL (optional)" value={form.aadhaarOrKycUrl} onChange={(event) => updateField("aadhaarOrKycUrl", event.target.value)} />
-                <input className="form-control" placeholder="Photo URL (optional)" value={form.photoUrl} onChange={(event) => updateField("photoUrl", event.target.value)} />
+                <FloatingInput id="aadhaarOrKycUrl" label="Aadhaar or KYC URL (optional)" value={form.aadhaarOrKycUrl} onChange={(event) => updateField("aadhaarOrKycUrl", event.target.value)} />
+                <FloatingInput id="photoUrl" label="Photo URL (optional)" value={form.photoUrl} onChange={(event) => updateField("photoUrl", event.target.value)} />
               </>
             ) : null}
 
-            <input
-              className="form-control"
-              type="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={(event) => updateField("password", event.target.value)}
-            />
+            <FloatingInput id="password" label="Password" value={form.password} onChange={(event) => updateField("password", event.target.value)} type="password" />
 
             <button type="submit" className="btn btn-success py-2" disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : `Register as ${roleLabel}`}

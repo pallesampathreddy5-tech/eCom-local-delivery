@@ -28,7 +28,7 @@ export const getMyCart = async (customerId) => {
 };
 
 export const addItemToCart = async ({ customerId, productId, quantity }) => {
-  const product = getProductById(productId);
+  const product = await getProductById(productId);
   if (!product) {
     throw new AppError(404, "Product not found");
   }

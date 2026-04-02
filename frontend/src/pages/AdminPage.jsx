@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import DashboardLayout from "../components/admin-ui/DashboardLayout";
 import Metrics from "../components/admin-ui/Metrics";
 import OrdersTable from "../components/admin-ui/OrdersTable";
@@ -17,12 +18,19 @@ const AdminPage = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   return (
     <div className="admin-root">
       <DashboardLayout roleLabel={user?.role || "ADMIN"} avatarText={avatarText} onLogout={handleLogout}>
+        <div className="mb-3 d-flex gap-2 flex-wrap">
+          <Link className="btn btn-primary btn-sm" to="/admin/approvals">Shop Approvals</Link>
+          <Link className="btn btn-outline-primary btn-sm" to="/admin/upload-product">Upload Item for Shop</Link>
+          {user?.role === "SUPER_ADMIN" ? (
+            <Link className="btn btn-outline-primary btn-sm" to="/super-admin/admins">Create Admin</Link>
+          ) : null}
+        </div>
         <div className="mb-4 d-flex justify-content-between align-items-center gap-3 flex-wrap">
           <div>
             <h2 className="fw-bold mb-1">{user?.role} Overview</h2>
