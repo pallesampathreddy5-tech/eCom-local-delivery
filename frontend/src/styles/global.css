@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Open Sans", sans-serif;
+  background: #f8faf8;
+  color: #1f2937;
+}
+
+a {
+  color: inherit;
+}
+.auth-page {
+  min-height: calc(100vh - 48px);
+  background: linear-gradient(180deg, #f3faf5 0%, #ffffff 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 18px;
+}
+
+.app-switcher {
+  backdrop-filter: blur(6px);
+}
+
+.toast-stack {
+  position: fixed;
+  right: 16px;
+  top: 62px;
+  z-index: 2000;
+  width: min(360px, calc(100vw - 32px));
+}

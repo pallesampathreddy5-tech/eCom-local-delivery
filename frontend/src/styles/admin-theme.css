@@ -1,0 +1,85 @@
+.admin-root {
+  --sidebar: #1d2a3a;
+  --sidebar-muted: #a3b3c7;
+  --page-bg: #f4f7fb;
+  --card: #ffffff;
+  --primary: #3454d1;
+  background: var(--page-bg);
+  color: #111827;
+}
+
+.admin-root .dashboard-shell {
+  min-height: calc(100vh - 48px);
+}
+
+.admin-root .sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #1d2a3a 0%, #243447 100%);
+}
+
+.admin-root .brand-block {
+  width: 12px;
+  height: 26px;
+  border-radius: 8px;
+  background: #7da3ff;
+}
+
+.admin-root .menu-item {
+  color: var(--sidebar-muted);
+  cursor: default;
+}
+
+.admin-root .menu-item.active,
+.admin-root .menu-item:hover {
+  color: #fff;
+  background: rgba(125, 163, 255, 0.16);
+}
+
+.admin-root .content {
+  min-width: 0;
+}
+
+.admin-root .topbar {
+  background: #fff;
+  height: 72px;
+}
+
+.admin-root .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e5edff;
+  color: #2745ba;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.admin-root .metric-card {
+  background: var(--card);
+  border: 1px solid #e9eef8;
+  box-shadow: 0 8px 24px rgba(29, 42, 58, 0.06);
+}
+
+.admin-root .trend {
+  color: #1f7a37;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.admin-root .table-card {
+  background: var(--card);
+  border: 1px solid #e9eef8;
+}
+
+.admin-root .status-pill {
+  background: #e9efff;
+  color: #2e4bc2;
+}
+
+@media (max-width: 992px) {
+  .admin-root .sidebar {
+    display: none;
+  }
+}

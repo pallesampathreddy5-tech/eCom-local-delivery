@@ -1,0 +1,58 @@
+:root {
+  --brand-green: #2c8c4b;
+  --mint: #eaf9ef;
+}
+
+.storefront-shell {
+  background: radial-gradient(circle at top right, #edf9f1 0%, #f8faf8 45%);
+}
+
+.storefront-shell .brand-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--brand-green);
+  box-shadow: 0 0 0 4px rgba(44, 140, 75, 0.15);
+}
+
+.storefront-shell .hero-wrap {
+  background: linear-gradient(180deg, #f3fbf6 0%, #ffffff 100%);
+}
+
+.storefront-shell .hero-card {
+  background: #ffffff;
+  border: 1px solid #d9f0df;
+  box-shadow: 0 20px 45px rgba(39, 84, 54, 0.08);
+}
+
+.storefront-shell .category-chip {
+  background: #fff;
+  border: 1px solid #e3f3e8;
+  transition: transform 0.2s ease;
+}
+
+.storefront-shell .category-chip:hover {
+  transform: translateY(-2px);
+}
+
+.storefront-shell .popular-bg {
+  background: linear-gradient(180deg, #ffffff 0%, #f2fbf5 100%);
+}
+
+.storefront-shell .cta-box {
+  background: #fff;
+  border: 1px solid #e4f1e8;
+}
+
+.storefront-shell .cta-delivery {
+  background-image: linear-gradient(135deg, #f5f7ff 0%, #eef3ff 100%);
+}
+
+.storefront-shell .cta-shop {
+  background-image: linear-gradient(135deg, var(--mint) 0%, #f3fff7 100%);
+}
+
+.storefront-shell .footer-wrap {
+  border-top: 1px solid #e2ebe4;
+  background: #ffffff;
+}

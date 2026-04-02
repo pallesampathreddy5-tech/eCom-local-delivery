@@ -1,0 +1,19 @@
+export const ORDER_STATUS = {
+  PLACED: "PLACED",
+  PAYMENT_PENDING: "PAYMENT_PENDING",
+  PAID: "PAID",
+  CANCELLED: "CANCELLED",
+  FAILED: "FAILED"
+};
+
+export const PAYMENT_STATUS = {
+  PENDING: "PENDING",
+  SUCCESS: "SUCCESS",
+  FAILED: "FAILED"
+};
+
+export const PAYMENT_METHOD = {
+  UPI: "UPI",
+  CARD: "CARD",
+  COD: "COD"
+};
