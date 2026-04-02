@@ -143,13 +143,24 @@ const RegisterPage = () => {
           <p className="text-secondary mb-4">Role-based onboarding connected to backend APIs.</p>
 
           <form className="d-grid gap-3 auth-form" onSubmit={handleSubmit}>
-            <div className="form-floating">
-              <select className="form-select" id="registerRole" value={role} onChange={(event) => setRole(event.target.value)}>
-                <option value={ROLES.CUSTOMER}>CUSTOMER</option>
-                <option value={ROLES.SHOPKEEPER}>SHOPKEEPER</option>
-                <option value={ROLES.DELIVERY_AGENT}>DELIVERY_AGENT</option>
-              </select>
-              <label htmlFor="registerRole">Select Role</label>
+            <div>
+              <label className="form-label fw-semibold mb-2">Register As</label>
+              <div className="auth-role-switch d-flex gap-2 flex-wrap">
+                {[
+                  { key: ROLES.CUSTOMER, label: "Customer" },
+                  { key: ROLES.SHOPKEEPER, label: "Shopkeeper" },
+                  { key: ROLES.DELIVERY_AGENT, label: "Delivery Agent" }
+                ].map((item) => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    className={`btn btn-sm ${role === item.key ? "btn-success" : "btn-outline-success"}`}
+                    onClick={() => setRole(item.key)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {role !== ROLES.SHOPKEEPER ? (

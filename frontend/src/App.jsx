@@ -19,6 +19,7 @@ import DeliveryDashboardPage from "./pages/dashboard/DeliveryDashboardPage";
 import AdminApprovalsPage from "./pages/AdminApprovalsPage";
 import AdminUploadProductPage from "./pages/AdminUploadProductPage";
 import SuperAdminCreateAdminPage from "./pages/SuperAdminCreateAdminPage";
+import SuperAdminAuditLogsPage from "./pages/SuperAdminAuditLogsPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { ROLES } from "./config/authConfig";
 
@@ -49,6 +50,7 @@ const App = () => {
       <Route path="/admin/upload-product" element={<ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.SUPER_ADMIN]}><AdminUploadProductPage /></ProtectedRoute>} />
       <Route path="/super-admin/dashboard" element={<ProtectedRoute allowedRoles={[ROLES.SUPER_ADMIN]}><AdminPage /></ProtectedRoute>} />
       <Route path="/super-admin/admins" element={<ProtectedRoute allowedRoles={[ROLES.SUPER_ADMIN]}><SuperAdminCreateAdminPage /></ProtectedRoute>} />
+      <Route path="/super-admin/audit-logs" element={<ProtectedRoute allowedRoles={[ROLES.SUPER_ADMIN]}><SuperAdminAuditLogsPage /></ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

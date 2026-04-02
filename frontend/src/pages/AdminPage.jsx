@@ -28,7 +28,10 @@ const AdminPage = () => {
           <Link className="btn btn-primary btn-sm" to="/admin/approvals">Shop Approvals</Link>
           <Link className="btn btn-outline-primary btn-sm" to="/admin/upload-product">Upload Item for Shop</Link>
           {user?.role === "SUPER_ADMIN" ? (
-            <Link className="btn btn-outline-primary btn-sm" to="/super-admin/admins">Create Admin</Link>
+            <>
+              <Link className="btn btn-outline-primary btn-sm" to="/super-admin/admins">Create Admin</Link>
+              <Link className="btn btn-outline-primary btn-sm" to="/super-admin/audit-logs">Audit Logs</Link>
+            </>
           ) : null}
         </div>
         <div className="mb-4 d-flex justify-content-between align-items-center gap-3 flex-wrap">
