@@ -2,11 +2,12 @@ import { NavLink } from "react-router-dom";
 
 const DashboardLayout = ({ children, roleLabel, avatarText, onLogout }) => {
   const menu = roleLabel === "SUPER_ADMIN"
-    ? [
+      ? [
         { label: "Dashboard", to: "/super-admin/dashboard" },
         { label: "Approvals", to: "/admin/approvals" },
         { label: "Upload Products", to: "/admin/upload-product" },
-        { label: "Create Admin", to: "/super-admin/admins" }
+        { label: "Create Admin", to: "/super-admin/admins" },
+        { label: "Audit Logs", to: "/super-admin/audit-logs" }
       ]
     : [
         { label: "Dashboard", to: "/admin/dashboard" },

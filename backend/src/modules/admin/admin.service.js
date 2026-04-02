@@ -1,7 +1,9 @@
 import { AppError } from "../../utils/AppError.js";
 import { ShopProfile } from "../../models/ShopProfile.js";
+import { DeliveryAgentProfile } from "../../models/DeliveryAgentProfile.js";
 import { listShopsForAdmin } from "../shops/shops.service.js";
 import { User } from "../../models/User.js";
+import { AuditLog } from "../../models/AuditLog.js";
 import { ROLES } from "../../constants/roles.js";
 import bcrypt from "bcryptjs";
 
@@ -46,4 +48,42 @@ export const createAdminBySuperAdmin = async ({ fullName, mobile, email, passwor
   });
 
   return user;
+};
+
+export const pendingDeliveryAgentsForApproval = async () => {
+  const profiles = await DeliveryAgentProfile.find({ approvalStatus: "PENDING" }).lean();
+
+  return Promise.all(
+    profiles.map(async (profile) => {
+      const user = await User.findById(profile.userId).lean();
+      return {
+        id: profile._id,
+        agentUserId: profile.userId.toString(),
+        fullName: user?.fullName || "-",
+        mobile: user?.mobile || "-",
+        email: user?.email || "-",
+        address: profile.address,
+        approvalStatus: profile.approvalStatus
+      };
+    })
+  );
+};
+
+export const updateDeliveryApproval = async ({ agentUserId, status }) => {
+  const profile = await DeliveryAgentProfile.findOne({ userId: agentUserId });
+  if (!profile) {
+    throw new AppError(404, "Delivery agent profile not found");
+  }
+
+  profile.approvalStatus = status;
+  await profile.save();
+  return profile;
+};
+
+export const listAuditLogs = async ({ limit = 200 } = {}) => {
+  return AuditLog.find({})
+    .sort({ createdAt: -1 })
+    .limit(limit)
+    .populate("actorUserId", "fullName email mobile role")
+    .lean();
 };

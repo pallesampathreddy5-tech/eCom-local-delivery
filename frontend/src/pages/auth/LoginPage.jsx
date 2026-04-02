@@ -7,13 +7,7 @@ import { useGuestCart } from "../../context/GuestCartContext";
 import { useToast } from "../../context/ToastContext";
 import logo from "../../assets/LocalKart logo design on white background.png";
 
-const ROLE_OPTIONS = [
-  ROLES.CUSTOMER,
-  ROLES.SHOPKEEPER,
-  ROLES.DELIVERY_AGENT,
-  ROLES.ADMIN,
-  ROLES.SUPER_ADMIN
-];
+const ROLE_OPTIONS = [ROLES.CUSTOMER, ROLES.SHOPKEEPER, ROLES.DELIVERY_AGENT];
 
 const LoginPage = () => {
   const { login, isAuthenticated, user } = useAuth();
@@ -92,18 +86,20 @@ const LoginPage = () => {
           <p className="text-secondary mb-4">Single auth system for customer, shop, delivery and admin roles.</p>
 
           <form className="d-grid gap-3 auth-form" onSubmit={handleSubmit}>
-            <div className="form-floating">
-              <select
-                className="form-select"
-                id="loginRole"
-                value={form.role}
-                onChange={(event) => setForm((prev) => ({ ...prev, role: event.target.value }))}
-              >
+            <div>
+              <label className="form-label fw-semibold mb-2">Login As</label>
+              <div className="auth-role-switch d-flex gap-2 flex-wrap">
                 {ROLE_OPTIONS.map((role) => (
-                  <option key={role} value={role}>{role}</option>
+                  <button
+                    key={role}
+                    type="button"
+                    className={`btn btn-sm ${form.role === role ? "btn-success" : "btn-outline-success"}`}
+                    onClick={() => setForm((prev) => ({ ...prev, role }))}
+                  >
+                    {role === ROLES.CUSTOMER ? "Customer" : role === ROLES.SHOPKEEPER ? "Shopkeeper" : "Delivery Agent"}
+                  </button>
                 ))}
-              </select>
-              <label htmlFor="loginRole">Role</label>
+              </div>
             </div>
 
             <div className="form-floating">

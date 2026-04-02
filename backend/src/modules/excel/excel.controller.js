@@ -2,6 +2,7 @@ import multer from "multer";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { sendSuccess } from "../../utils/apiResponse.js";
 import { AppError } from "../../utils/AppError.js";
+import { createAuditLog } from "../../utils/auditLog.js";
 import { buildTemplateWorkbook, commitExcelProducts, parseExcelRows } from "./excel.service.js";
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -56,6 +57,13 @@ export const commitExcelUploadHandler = asyncHandler(async (req, res) => {
     adminRole: req.user.role,
     shopUserId,
     rows: parsed.rows
+  });
+  await createAuditLog({
+    req,
+    action: "EXCEL_PRODUCTS_COMMITTED",
+    targetType: "ProductBulkUpload",
+    targetId: shopUserId,
+    metadata: { category, createdCount: created.length }
   });
 
   return sendSuccess(res, {

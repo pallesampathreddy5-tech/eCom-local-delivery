@@ -19,3 +19,12 @@ export const createAdminUserSchema = z.object({
     password: z.string().min(8, "Password must be at least 8 characters")
   })
 });
+
+export const updateDeliveryApprovalSchema = z.object({
+  params: z.object({
+    agentUserId: z.string().min(1, "Agent user id is required")
+  }),
+  body: z.object({
+    status: approvalEnum
+  })
+});

@@ -43,6 +43,13 @@ a {
   padding-top: 0.95rem;
 }
 
+.auth-role-switch .btn {
+  min-height: 40px;
+  border-radius: 999px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
 .toast-stack {
   position: fixed;
   right: 16px;
