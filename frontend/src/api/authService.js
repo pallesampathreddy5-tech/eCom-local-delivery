@@ -15,7 +15,10 @@ export const loginRequest = async ({ loginId, password, role }) => {
     throw new Error("Invalid login response");
   }
 
-  if (user.role !== role) {
+  const allowedRoles =
+    role === ROLES.ADMIN ? [ROLES.ADMIN, ROLES.SUPER_ADMIN] : [role];
+
+  if (!allowedRoles.includes(user.role)) {
     throw new Error(`This account belongs to ${user.role}. Please select the correct role.`);
   }
 
