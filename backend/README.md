@@ -28,6 +28,14 @@ Optional production bootstrap values for the first super admin:
 
 If these bootstrap values are set, the backend will create the first `SUPER_ADMIN` on startup only when no super admin already exists. After the account is created, you can remove these env vars from production.
 
+You can also create the first super admin manually in production with:
+
+```bash
+npm run bootstrap:super-admin
+```
+
+This command uses the same bootstrap env vars and is useful on Railway if the app started before those variables were added.
+
 ## Auth Routes
 
 - `POST /api/v1/auth/register/customer`

@@ -3,13 +3,23 @@ import env from "../config/env.js";
 import { ROLES } from "../constants/roles.js";
 import { User } from "../models/User.js";
 
-const hasBootstrapConfig =
-  env.bootstrapSuperAdminEmail &&
-  env.bootstrapSuperAdminPassword &&
-  env.bootstrapSuperAdminMobile;
+const getMissingBootstrapFields = () => {
+  const missing = [];
+
+  if (!env.bootstrapSuperAdminEmail) missing.push("BOOTSTRAP_SUPER_ADMIN_EMAIL");
+  if (!env.bootstrapSuperAdminPassword) missing.push("BOOTSTRAP_SUPER_ADMIN_PASSWORD");
+  if (!env.bootstrapSuperAdminMobile) missing.push("BOOTSTRAP_SUPER_ADMIN_MOBILE");
+
+  return missing;
+};
 
 export const ensureBootstrapSuperAdmin = async () => {
-  if (!hasBootstrapConfig) {
+  const missingBootstrapFields = getMissingBootstrapFields();
+
+  if (missingBootstrapFields.length > 0) {
+    console.log(
+      `Skipping bootstrap super admin creation. Missing env vars: ${missingBootstrapFields.join(", ")}`
+    );
     return;
   }
 
