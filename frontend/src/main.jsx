@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/global.css";
 import "./styles/store-theme.css";
@@ -10,9 +10,11 @@ import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
 import { GuestCartProvider } from "./context/GuestCartContext";
 
+const Router = import.meta.env.PROD ? HashRouter : BrowserRouter;
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Router>
       <ToastProvider>
         <AuthProvider>
           <GuestCartProvider>
@@ -20,6 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </GuestCartProvider>
         </AuthProvider>
       </ToastProvider>
-    </BrowserRouter>
+    </Router>
   </React.StrictMode>
 );
