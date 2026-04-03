@@ -12,9 +12,11 @@ import { errorHandler } from "./middlewares/error.middleware.js";
 const app = express();
 
 app.use(helmet());
+const normalizeOrigin = (origin) => origin.trim().replace(/\/+$/, "");
+
 const corsOptions = {
   origin(origin, callback) {
-    if (!origin || env.frontendOrigins.includes(origin)) {
+    if (!origin || env.frontendOrigins.includes(normalizeOrigin(origin))) {
       return callback(null, true);
     }
 

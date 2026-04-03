@@ -10,6 +10,14 @@ const required = (key) => {
   return value;
 };
 
+const normalizeOrigin = (origin) => origin.trim().replace(/\/+$/, "");
+
+const parseOrigins = (value) =>
+  value
+    .split(",")
+    .map((origin) => normalizeOrigin(origin))
+    .filter(Boolean);
+
 const env = {
   port: Number(process.env.PORT || 5000),
   appEnv: process.env.APP_ENV || "dev",
@@ -19,7 +27,11 @@ const env = {
   accessTtl: process.env.ACCESS_TOKEN_TTL || "15m",
   refreshTtl: process.env.REFRESH_TOKEN_TTL || "7d",
   cookieDomain: process.env.COOKIE_DOMAIN || "",
-  frontendOrigin: process.env.FRONTEND_ORIGIN || "http://localhost:5173"
+  frontendOrigins: parseOrigins(process.env.FRONTEND_ORIGIN || "http://localhost:5173"),
+  bootstrapSuperAdminEmail: process.env.BOOTSTRAP_SUPER_ADMIN_EMAIL || "",
+  bootstrapSuperAdminPassword: process.env.BOOTSTRAP_SUPER_ADMIN_PASSWORD || "",
+  bootstrapSuperAdminFullName: process.env.BOOTSTRAP_SUPER_ADMIN_FULL_NAME || "Platform Super Admin",
+  bootstrapSuperAdminMobile: process.env.BOOTSTRAP_SUPER_ADMIN_MOBILE || ""
 };
 
 export default env;

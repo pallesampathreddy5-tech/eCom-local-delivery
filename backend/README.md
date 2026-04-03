@@ -20,6 +20,14 @@ Required values:
 - `JWT_REFRESH_SECRET`
 - `FRONTEND_ORIGIN=http://localhost:5173`
 
+Optional production bootstrap values for the first super admin:
+- `BOOTSTRAP_SUPER_ADMIN_EMAIL=abc@gmail.com`
+- `BOOTSTRAP_SUPER_ADMIN_PASSWORD=change_this_to_a_strong_password`
+- `BOOTSTRAP_SUPER_ADMIN_FULL_NAME=Platform Super Admin`
+- `BOOTSTRAP_SUPER_ADMIN_MOBILE=9000000005`
+
+If these bootstrap values are set, the backend will create the first `SUPER_ADMIN` on startup only when no super admin already exists. After the account is created, you can remove these env vars from production.
+
 ## Auth Routes
 
 - `POST /api/v1/auth/register/customer`
