@@ -72,7 +72,7 @@ const CustomerCheckoutPage = () => {
                 <option value="COD">COD</option>
               </select>
               {paymentMethod === "COD" && codBlocked ? (
-                <small className="text-danger">COD allowed only when total >= Rs {preview.constraints.codMinOrderValue}</small>
+                <small className="text-danger">COD allowed only when total {"\u003e="} Rs {preview.constraints.codMinOrderValue}</small>
               ) : null}
             </div>
             <div className="col-md-8">
