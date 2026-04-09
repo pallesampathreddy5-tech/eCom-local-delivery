@@ -12,12 +12,23 @@ import { errorHandler } from "./middlewares/error.middleware.js";
 const app = express();
 
 app.use(helmet());
+const normalizeOrigin = (origin) => origin.trim().replace(/\/+$/, "");
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin || env.frontendOrigins.includes(normalizeOrigin(origin))) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
+  credentials: true
+};
+
 app.use(
-  cors({
-    origin: env.frontendOrigin,
-    credentials: true
-  })
+  cors(corsOptions)
 );
+app.options("*", cors(corsOptions));
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
